@@ -1,0 +1,1028 @@
+/* ==========================================================================
+   Smart Campus AI - Component Styles
+   Dashboard, Chatbot, Tasks, Deadlines, Study Planner, Notes/Quiz, Tracker
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. DASHBOARD COMPONENTS
+   -------------------------------------------------------------------------- */
+.dashboard-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Welcome Hero Banner */
+.welcome-hero {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.15)), var(--bg-card);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-hero::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.welcome-text h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.welcome-text p {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  max-width: 650px;
+}
+
+.welcome-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+/* Metric / Stat Cards Grid */
+.stats-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1rem;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.15rem;
+}
+
+.stat-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stat-icon-wrap.indigo { background: var(--primary-light); color: var(--primary); }
+.stat-icon-wrap.emerald { background: var(--success-light); color: var(--success); }
+.stat-icon-wrap.amber { background: var(--warning-light); color: var(--warning); }
+.stat-icon-wrap.purple { background: var(--accent-purple-light); color: var(--accent-purple); }
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.stat-subtext {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+/* Two Column Layout for Dashboard Body */
+.dashboard-columns {
+  display: grid;
+  grid-template-columns: 1.7fr 1.3fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.15rem;
+}
+
+.card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Classes Timeline */
+.timeline-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.85rem;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--primary);
+  transition: transform var(--transition-fast);
+}
+.timeline-item:hover {
+  transform: translateX(4px);
+}
+
+.timeline-time {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  white-space: nowrap;
+  min-width: 90px;
+}
+
+.timeline-details {
+  flex: 1;
+}
+
+.timeline-course {
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.timeline-topic {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.timeline-meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: flex;
+  gap: 0.85rem;
+  margin-top: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   HACKATHON INNOVATION: ACADEMIC URGENCY CO-PILOT
+   -------------------------------------------------------------------------- */
+.copilot-card {
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  background: linear-gradient(145deg, rgba(245, 158, 11, 0.08), var(--bg-card));
+  position: relative;
+  overflow: hidden;
+}
+
+.copilot-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.copilot-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  background: var(--warning-light);
+  color: var(--warning);
+}
+
+.risk-meter-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  background: var(--bg-tertiary);
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+}
+
+.risk-bar-wrap {
+  flex: 1;
+}
+
+.risk-bar-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.risk-progress-track {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.risk-progress-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.8s ease;
+}
+
+.action-highlight-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.action-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+}
+
+.action-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.action-reason {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.action-first-step {
+  font-size: 0.8rem;
+  background: var(--bg-glass);
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--accent-cyan);
+  color: var(--text-primary);
+}
+
+/* Urgent Deadlines Mini Widget */
+.deadline-mini-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.deadline-mini-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0.9rem;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--danger);
+}
+
+.deadline-mini-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.deadline-mini-course {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.deadline-countdown-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--danger);
+  background: var(--danger-light);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   2. AI CHATBOT COMPONENTS
+   -------------------------------------------------------------------------- */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--header-height) - 3.5rem);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.chat-header {
+  padding: 0.9rem 1.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-glass);
+}
+
+.chat-header-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.chat-mode-tabs {
+  display: flex;
+  background: var(--bg-tertiary);
+  padding: 3px;
+  border-radius: var(--radius-md);
+  gap: 3px;
+}
+
+.chat-mode-tab {
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.chat-mode-tab.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* Document Attachment Banner in Chat */
+.doc-context-banner {
+  padding: 0.75rem 1.25rem;
+  background: var(--primary-light);
+  border-bottom: 1px solid rgba(99, 102, 241, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.82rem;
+}
+
+.chat-messages-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.chat-message {
+  display: flex;
+  gap: 0.75rem;
+  max-width: 80%;
+  animation: fadeIn 0.2s ease;
+}
+
+.chat-message.user {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+
+.chat-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.8rem;
+}
+
+.chat-message.assistant .chat-avatar {
+  background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+  color: #fff;
+}
+
+.chat-message.user .chat-avatar {
+  background: var(--accent-cyan);
+  color: #fff;
+}
+
+.chat-bubble {
+  background: var(--bg-tertiary);
+  padding: 0.85rem 1.15rem;
+  border-radius: var(--radius-lg);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  border: 1px solid var(--border-subtle);
+}
+
+.chat-message.user .chat-bubble {
+  background: var(--primary);
+  color: #fff;
+  border-color: transparent;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-message.assistant .chat-bubble {
+  border-bottom-left-radius: 4px;
+}
+
+.chat-engine-tag {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Prompt Suggestions Pills */
+.prompt-chips-row {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  overflow-x: auto;
+  background: var(--bg-glass);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.prompt-chip {
+  padding: 0.35rem 0.75rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.prompt-chip:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.chat-input-bar {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  background: var(--bg-secondary);
+}
+
+.chat-input-field {
+  flex: 1;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.7rem 1rem;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.chat-input-field:focus {
+  border-color: var(--primary);
+}
+
+/* --------------------------------------------------------------------------
+   3. SMART TASK MANAGER
+   -------------------------------------------------------------------------- */
+.tasks-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.task-filter-pills {
+  display: flex;
+  gap: 0.35rem;
+  background: var(--bg-secondary);
+  padding: 4px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.task-filter-pill {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.task-filter-pill.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+.task-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.task-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.task-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-1px);
+}
+
+.task-card.completed {
+  opacity: 0.6;
+}
+
+.task-card.completed .task-title-text {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.task-checkbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 2px solid var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.task-checkbox.checked {
+  background-color: var(--success);
+  border-color: var(--success);
+  color: #fff;
+}
+
+.task-details {
+  flex: 1;
+}
+
+.task-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.task-course-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.task-title-text {
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.task-desc-text {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.task-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.priority-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+}
+
+.priority-badge.urgent { background: var(--danger-light); color: var(--danger); }
+.priority-badge.high { background: var(--warning-light); color: var(--warning); }
+.priority-badge.medium { background: var(--accent-cyan-light); color: var(--accent-cyan); }
+.priority-badge.low { background: var(--bg-tertiary); color: var(--text-secondary); }
+
+.task-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   4. DEADLINE REMINDERS HUB
+   -------------------------------------------------------------------------- */
+.deadlines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+
+.deadline-card {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  position: relative;
+  border-left: 4px solid var(--primary);
+}
+
+.deadline-card.critical { border-left-color: var(--danger); }
+.deadline-card.high { border-left-color: var(--warning); }
+.deadline-card.medium { border-left-color: var(--accent-cyan); }
+
+.deadline-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.deadline-type-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+.deadline-countdown-clock {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.deadline-card.critical .deadline-countdown-clock { color: var(--danger); }
+.deadline-card.high .deadline-countdown-clock { color: var(--warning); }
+
+.deadline-title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.deadline-course-name {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.deadline-location-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.weight-progress-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.weight-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   5. AI STUDY PLANNER
+   -------------------------------------------------------------------------- */
+.planner-layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .planner-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.planner-controls-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.schedule-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.schedule-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--primary);
+  transition: all var(--transition-fast);
+}
+
+.schedule-block.completed {
+  opacity: 0.6;
+  border-left-color: var(--success);
+}
+
+.schedule-time-badge {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--primary);
+  min-width: 95px;
+}
+
+.schedule-content {
+  flex: 1;
+}
+
+.schedule-topic {
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.schedule-task {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-top: 3px;
+}
+
+.schedule-technique-pill {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  display: inline-block;
+  margin-top: 6px;
+}
+
+/* --------------------------------------------------------------------------
+   6. NOTES SUMMARIZER & PRACTICE QUIZ
+   -------------------------------------------------------------------------- */
+.notes-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.summary-result-box {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+.takeaways-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.takeaway-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--accent-cyan);
+  font-size: 0.88rem;
+}
+
+/* Interactive Quiz */
+.quiz-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.quiz-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.quiz-question-num {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+}
+
+.quiz-question-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.quiz-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.quiz-option-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.75rem 1rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  text-align: left;
+  font-size: 0.88rem;
+  transition: all var(--transition-fast);
+}
+
+.quiz-option-btn:hover:not(:disabled) {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.quiz-option-btn.correct {
+  background: var(--success-light);
+  border-color: var(--success);
+  color: var(--success);
+  font-weight: 600;
+}
+
+.quiz-option-btn.wrong {
+  background: var(--danger-light);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.quiz-explanation-box {
+  display: none;
+  background: var(--bg-secondary);
+  border-left: 3px solid var(--primary);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   7. ANNOUNCEMENTS FEED
+   -------------------------------------------------------------------------- */
+.announcements-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.announcement-card {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.announcement-card.pinned {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), var(--bg-card));
+}
+
+.announcement-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.announcement-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.announcement-content {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   8. PROGRESS TRACKER & CHARTS
+   -------------------------------------------------------------------------- */
+.analytics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chart-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.svg-chart-container {
+  width: 100%;
+  height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 0.85rem;
+}
+
+.achievement-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1rem 0.5rem;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  gap: 0.4rem;
+}
+
+.achievement-icon {
+  font-size: 1.8rem;
+}
+
+.achievement-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.achievement-desc {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}

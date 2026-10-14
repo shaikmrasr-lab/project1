@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Campus AI - AI-Powered Academic Assistant</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+</head>
+<body>
+
+  <!-- Mobile Sidebar Backdrop -->
+  <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
+
+  <div class="app-layout">
+    
+    <!-- ==================== SIDEBAR ==================== -->
+    <aside id="appSidebar" class="app-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">🎓</div>
+        <div class="brand-title">Smart Campus</div>
+        <span class="brand-tag">AI 2.0</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Academic Life</div>
+        
+        <a href="#dashboard" class="nav-link active" data-view="dashboard">
+          <span>📊</span>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="#chat" class="nav-link" data-view="chat">
+          <span>🤖</span>
+          <span>CampusBot AI</span>
+          <span class="nav-badge">Co-pilot</span>
+        </a>
+
+        <a href="#tasks" class="nav-link" data-view="tasks">
+          <span>📝</span>
+          <span>Task Manager</span>
+        </a>
+
+        <a href="#deadlines" class="nav-link" data-view="deadlines">
+          <span>⏳</span>
+          <span>Deadlines & Exams</span>
+          <span class="nav-badge danger">Urgent</span>
+        </a>
+
+        <div class="nav-section-title">Study Tools</div>
+
+        <a href="#planner" class="nav-link" data-view="planner">
+          <span>📅</span>
+          <span>AI Study Planner</span>
+        </a>
+
+        <a href="#notes" class="nav-link" data-view="notes">
+          <span>📖</span>
+          <span>Notes & Quizzes</span>
+        </a>
+
+        <a href="#announcements" class="nav-link" data-view="announcements">
+          <span>📢</span>
+          <span>Notice Board</span>
+        </a>
+
+        <a href="#tracker" class="nav-link" data-view="tracker">
+          <span>📈</span>
+          <span>Progress & Analytics</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-mini-card">
+          <div id="sidebarUserAvatar" class="user-avatar">AM</div>
+          <div class="user-info">
+            <div id="sidebarUserName" class="user-name">Alex Morgan</div>
+            <div id="sidebarUserRole" class="user-role">Computer Science • Sem 4</div>
+          </div>
+          <button id="openSettingsBtn" class="btn-icon" style="width: 32px; height: 32px;" title="Settings">
+            ⚙️
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ==================== MAIN CONTENT AREA ==================== -->
+    <div class="app-main">
+      
+      <!-- HEADER -->
+      <header class="app-header">
+        <div class="header-left">
+          <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Toggle navigation">
+            ☰
+          </button>
+          <h1 id="headerPageTitle" class="page-title">Student Dashboard</h1>
+        </div>
+
+        <div class="header-search">
+          <span>🔍</span>
+          <input id="globalSearchInput" type="text" placeholder="Search tasks, notices, courses... (Enter)">
+        </div>
+
+        <div class="header-actions">
+          <div id="aiEngineHeaderPill" class="ai-status-pill" title="Click to view AI configuration">
+            <span class="ai-status-dot"></span>
+            <span>Smart Local AI (Zero Quota Mode)</span>
+          </div>
+
+          <button id="themeToggleBtn" class="btn-icon" title="Toggle Light / Dark Mode">
+            <span id="themeToggleIcon">☀️</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- SCROLLABLE CONTENT BODY -->
+      <main class="app-content">
+        
+        <!-- ==================== VIEW 1: DASHBOARD ==================== -->
+        <section id="view_dashboard" class="view-panel active">
+          <div class="dashboard-grid">
+            
+            <!-- Welcome Hero -->
+            <div class="welcome-hero">
+              <div class="welcome-text">
+                <h1 id="welcomeUserTitle">Welcome back, Alex! 👋</h1>
+                <p id="welcomeUserDesc">
+                  Your academic command center is synchronized. You have critical assignments due this week and a 7-day study streak to defend.
+                </p>
+              </div>
+              <div class="welcome-actions">
+                <button class="btn btn-primary btn-sm" onclick="app.switchView('planner')">
+                  🎯 Generate Today's Plan
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="app.switchView('chat')">
+                  💬 Ask CampusBot
+                </button>
+              </div>
+            </div>
+
+            <!-- Stats Overview Cards -->
+            <div class="stats-cards-grid">
+              <div class="glass-card stat-card">
+                <div class="stat-icon-wrap indigo">🎓</div>
+                <div class="stat-content">
+                  <div id="statGpa" class="stat-value">3.84</div>
+                  <div class="stat-label">Cumulative GPA</div>
+                  <div class="stat-subtext">Honor Roll Tier</div>
+                </div>
+              </div>
+
+              <div class="glass-card stat-card">
+                <div class="stat-icon-wrap emerald">🛡️</div>
+                <div class="stat-content">
+                  <div id="statAttendance" class="stat-value">94.6%</div>
+                  <div class="stat-label">Average Attendance</div>
+                  <div class="stat-subtext">Well above 75% limit</div>
+                </div>
+              </div>
+
+              <div class="glass-card stat-card">
+                <div class="stat-icon-wrap amber">📋</div>
+                <div class="stat-content">
+                  <div id="statTasks" class="stat-value">2 / 7</div>
+                  <div class="stat-label">Tasks Completed</div>
+                  <div class="stat-subtext">5 remaining tasks</div>
+                </div>
+              </div>
+
+              <div class="glass-card stat-card">
+                <div class="stat-icon-wrap purple">🔥</div>
+                <div class="stat-content">
+                  <div id="statStreak" class="stat-value">8 Days 🔥</div>
+                  <div class="stat-label">Daily Study Streak</div>
+                  <div class="stat-subtext">Personal best!</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- HACKATHON INNOVATION: ACADEMIC URGENCY CO-PILOT -->
+            <div class="glass-card copilot-card">
+              <div class="copilot-header">
+                <div class="card-title">
+                  <span>🧠</span>
+                  <span>Smart Academic Urgency Co-pilot</span>
+                </div>
+                <span class="copilot-badge">AI Prioritization Engine</span>
+              </div>
+
+              <div class="risk-meter-container">
+                <div class="risk-bar-wrap">
+                  <div class="risk-bar-labels">
+                    <span>Academic Risk & Workload Pressure</span>
+                    <span id="copilotRiskLabel" style="color: var(--warning);">Optimal Flow</span>
+                  </div>
+                  <div class="risk-progress-track">
+                    <div id="copilotRiskFill" class="risk-progress-fill" style="width: 42%; background: var(--warning);"></div>
+                  </div>
+                </div>
+                <div style="font-size: 1.25rem; font-weight: 700;" id="copilotRiskValue">42%</div>
+              </div>
+
+              <div class="action-highlight-box">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span class="action-tag">What Should I Do Right Now?</span>
+                  <button class="btn btn-primary btn-sm" onclick="app.switchView('planner')">
+                    ⚡ Start 30m Session
+                  </button>
+                </div>
+                <div id="copilotActionTitle" class="action-title">CS301: Complete Dijkstra's Algorithm implementation</div>
+                <div id="copilotActionReason" class="action-reason">
+                  Due tonight with high weightage. Tackling core logic now avoids late submission penalties.
+                </div>
+                <div id="copilotActionStep" class="action-first-step">
+                  🎯 Recommended First Step: Open code editor for CS301, write unit tests for min-heap adjacency lists, and run tests.
+                </div>
+              </div>
+            </div>
+
+            <!-- Dashboard Columns: Timetable & Urgent Deadlines -->
+            <div class="dashboard-columns">
+              
+              <!-- Left Column: Today's Classes -->
+              <div class="glass-card">
+                <div class="card-header-row">
+                  <div class="card-title">
+                    <span>📅</span>
+                    <span>Today's Classes <span id="todayDayLabel" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;"></span></span>
+                  </div>
+                  <button class="btn btn-outline btn-sm" onclick="app.switchView('planner')">
+                    Full Timetable
+                  </button>
+                </div>
+
+                <div id="todayClassesList" class="timeline-list">
+                  <!-- Populated by dashboard.js -->
+                </div>
+              </div>
+
+              <!-- Right Column: Urgent Deadlines & Notices -->
+              <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                
+                <!-- Urgent Deadlines -->
+                <div class="glass-card">
+                  <div class="card-header-row">
+                    <div class="card-title">
+                      <span>⏳</span>
+                      <span>Approaching Deadlines</span>
+                    </div>
+                    <button class="btn btn-outline btn-sm" onclick="app.switchView('deadlines')">
+                      View All
+                    </button>
+                  </div>
+
+                  <div id="urgentDeadlinesList" class="deadline-mini-list">
+                    <!-- Populated by dashboard.js -->
+                  </div>
+                </div>
+
+                <!-- Notices Ticker -->
+                <div class="glass-card">
+                  <div class="card-header-row">
+                    <div class="card-title">
+                      <span>📢</span>
+                      <span>Campus News Ticker</span>
+                    </div>
+                    <button class="btn btn-outline btn-sm" onclick="app.switchView('announcements')">
+                      Notice Board
+                    </button>
+                  </div>
+
+                  <div id="noticesTickerList">
+                    <!-- Populated by dashboard.js -->
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ==================== VIEW 2: AI CHATBOT ==================== -->
+        <section id="view_chat" class="view-panel">
+          <div class="chat-container">
+            
+            <div class="chat-header">
+              <div class="chat-header-info">
+                <div class="stat-icon-wrap indigo" style="width: 36px; height: 36px; font-size: 1rem;">🤖</div>
+                <div>
+                  <div style="font-size: 0.95rem; font-weight: 700;">CampusBot AI Academic Assistant</div>
+                  <div style="font-size: 0.72rem; color: var(--text-muted);">Trained on college regulations, syllabus, and study docs</div>
+                </div>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <div class="chat-mode-tabs">
+                  <button id="chatModeGeneral" class="chat-mode-tab active">🏛️ Campus Rules</button>
+                  <button id="chatModeDoc" class="chat-mode-tab">📖 Study Doc Q&A</button>
+                </div>
+                <button id="chatClearBtn" class="btn-icon" title="Clear Chat History">🗑️</button>
+              </div>
+            </div>
+
+            <!-- Document Attachment Banner -->
+            <div id="chatDocBanner" class="doc-context-banner" style="display: none;">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span>📎</span>
+                <span id="chatDocBannerTitle" style="font-weight: 600;">Active Study Document</span>
+              </div>
+              <button id="chatRemoveDocBtn" class="btn btn-outline btn-sm" style="padding: 2px 8px; font-size: 0.75rem;">
+                ✕ Detach
+              </button>
+            </div>
+
+            <!-- Messages Area -->
+            <div id="chatMessagesArea" class="chat-messages-area">
+              <!-- Populated dynamically -->
+            </div>
+
+            <!-- Prompt Suggestions Chips -->
+            <div class="prompt-chips-row">
+              <button class="prompt-chip" data-prompt="What classes do I have today?">📅 Today's Classes?</button>
+              <button class="prompt-chip" data-prompt="What are my urgent assignment deadlines?">⏳ Urgent Deadlines?</button>
+              <button class="prompt-chip" data-prompt="What are the university library operating hours and borrowing rules?">🏛️ Library Rules?</button>
+              <button class="prompt-chip" data-prompt="What is the minimum attendance requirement for examinations?">🛡️ Attendance Policy?</button>
+              <button class="prompt-chip" data-prompt="How is the 10-point GPA scale calculated?">🎓 GPA Calculation?</button>
+            </div>
+
+            <!-- Input Bar -->
+            <div class="chat-input-bar">
+              <button id="chatAttachDocBtn" class="btn-icon" title="Attach lecture note or syllabus for Q&A">
+                📎
+              </button>
+              <input id="chatInput" class="chat-input-field" type="text" placeholder="Ask about campus life, timetables, or attached notes...">
+              <button id="chatSendBtn" class="btn btn-primary">
+                <span>Send</span>
+                <span>➤</span>
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ==================== VIEW 3: SMART TASK MANAGER ==================== -->
+        <section id="view_tasks" class="view-panel">
+          <div class="tasks-header-bar">
+            <div class="task-filter-pills">
+              <button class="task-filter-pill active" data-filter="all">All Tasks</button>
+              <button class="task-filter-pill" data-filter="pending">Pending</button>
+              <button class="task-filter-pill" data-filter="urgent">Urgent / High</button>
+              <button class="task-filter-pill" data-filter="completed">Completed</button>
+            </div>
+
+            <div style="display: flex; gap: 0.75rem;">
+              <input id="taskSearchInput" class="form-input" type="text" placeholder="Filter tasks by course or title..." style="width: 240px; padding: 0.45rem 0.75rem;">
+              <button id="addNewTaskBtn" class="btn btn-primary">
+                <span>+ Add Task</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="tasksCardsList" class="task-cards-list">
+            <!-- Populated by tasks.js -->
+          </div>
+        </section>
+
+        <!-- ==================== VIEW 4: DEADLINE REMINDERS ==================== -->
+        <section id="view_deadlines" class="view-panel">
+          <div class="card-header-row" style="margin-bottom: 1.25rem;">
+            <div>
+              <h2 style="font-size: 1.25rem; font-weight: 700;">Examination & Assignment Countdown Hub</h2>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">Real-time ticker tracking approaching academic milestones and syllabus weights.</p>
+            </div>
+            <button id="addNewDeadlineBtn" class="btn btn-primary">
+              <span>+ Add Deadline</span>
+            </button>
+          </div>
+
+          <div id="deadlinesCardsGrid" class="deadlines-grid">
+            <!-- Populated by deadlines.js -->
+          </div>
+        </section>
+
+        <!-- ==================== VIEW 5: AI STUDY PLANNER ==================== -->
+        <section id="view_planner" class="view-panel">
+          <div class="planner-layout">
+            
+            <!-- Controls Sidebar -->
+            <div class="glass-card planner-controls-card">
+              <div class="card-title">
+                <span>⚙️</span>
+                <span>Plan Configuration</span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Subjects to Cover</label>
+                <input id="plannerSubjectsInput" class="form-input" type="text" value="CS301 Algorithms, CS304 Databases, MATH210">
+                <div style="display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px;">
+                  <span class="planner-preset-pill task-course-tag" style="cursor: pointer;">CS301</span>
+                  <span class="planner-preset-pill task-course-tag" style="cursor: pointer;">CS304</span>
+                  <span class="planner-preset-pill task-course-tag" style="cursor: pointer;">MATH210</span>
+                  <span class="planner-preset-pill task-course-tag" style="cursor: pointer;">AI102</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div style="display: flex; justify-content: space-between;">
+                  <label class="form-label">Available Study Time</label>
+                  <span id="plannerHoursValue" style="font-weight: 700; color: var(--primary);">4.5 hrs</span>
+                </div>
+                <input id="plannerHoursSlider" type="range" min="1" max="8" step="0.5" value="4.5" style="width: 100%; accent-color: var(--primary);">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Target Date</label>
+                <input id="plannerTargetDateInput" class="form-input" type="date">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Study Technique</label>
+                <select id="plannerTechniqueSelect" class="form-select">
+                  <option value="Pomodoro (25/5)">Pomodoro (25m Focus + 5m Break)</option>
+                  <option value="Deep Work (50/10)">Deep Work (50m Focus + 10m Break)</option>
+                  <option value="Balanced Interval (40/10)">Balanced Interval (40m Focus + 10m Break)</option>
+                </select>
+              </div>
+
+              <button id="generatePlanBtn" class="btn btn-primary" style="margin-top: 0.5rem;">
+                <span>✨ Generate AI Schedule</span>
+              </button>
+            </div>
+
+            <!-- Timetable Schedule Display -->
+            <div class="glass-card">
+              <div class="card-header-row">
+                <div>
+                  <h3 id="activePlanTitle" style="font-size: 1.15rem; font-weight: 700;">Personalized Academic Schedule</h3>
+                  <div id="activePlanMeta" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">
+                    Optimized for peak cognitive focus and milestone completion
+                  </div>
+                </div>
+                <span id="plannerEngineTag" class="brand-tag">Smart Local AI</span>
+              </div>
+
+              <div id="scheduleTimelineList" class="schedule-timeline" style="margin-top: 1rem;">
+                <!-- Populated by planner.js -->
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ==================== VIEW 6: NOTES & PRACTICE QUIZZES ==================== -->
+        <section id="view_notes" class="view-panel">
+          <div class="notes-layout">
+            
+            <!-- Input & Summarize Card -->
+            <div class="glass-card">
+              <div class="card-header-row">
+                <div class="card-title">
+                  <span>📖</span>
+                  <span>AI Lecture Notes Summarizer & Quiz Generator</span>
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                  <button id="loadSampleNotesBtn" class="btn btn-outline btn-sm">
+                    🧪 Load Sample Lecture
+                  </button>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                <div class="form-group">
+                  <label class="form-label">Note / Lecture Topic</label>
+                  <input id="notesTitleInput" class="form-input" type="text" placeholder="e.g. Graph Algorithms: Dijkstra & Bellman-Ford">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Course Code</label>
+                  <input id="notesCourseInput" class="form-input" type="text" placeholder="e.g. CS301">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Upload Text File</label>
+                  <input id="notesFileInput" type="file" accept=".txt,.md,.text" class="form-input" style="padding: 0.45rem;">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Paste Lecture Content, Textbook Excerpt, or Transcript</label>
+                <textarea id="notesContentInput" class="form-textarea" rows="6" placeholder="Paste your lecture notes, textbook chapters, or transcript here (minimum 30 characters)..."></textarea>
+              </div>
+
+              <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
+                <button id="summarizeNotesBtn" class="btn btn-primary">
+                  <span>🧠 Summarize & Generate Quiz</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="notesResultSection" style="display: none;">
+              
+              <!-- Summary & Takeaways -->
+              <div class="glass-card" style="margin-bottom: 1.5rem;">
+                <div class="card-header-row">
+                  <div class="card-title">
+                    <span>💡</span>
+                    <span>Executive Summary & Key Principles</span>
+                  </div>
+                  <span id="notesEngineTag" class="brand-tag">AI Powered</span>
+                </div>
+
+                <div id="noteSummaryContent" class="summary-result-box" style="margin-bottom: 1.25rem;"></div>
+
+                <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem;">Core Takeaways & High-Yield Facts:</h4>
+                <div id="noteTakeawaysList" class="takeaways-list"></div>
+              </div>
+
+              <!-- Interactive Practice Quiz -->
+              <div class="glass-card">
+                <div class="card-header-row">
+                  <div class="card-title">
+                    <span>🎯</span>
+                    <span>Interactive Practice Quiz (5 Questions)</span>
+                  </div>
+                  <span style="font-size: 0.8rem; color: var(--text-muted);">Instant Feedback & Explanations</span>
+                </div>
+
+                <div id="quizScoreBanner" style="display: none;"></div>
+                <div id="noteQuizArea" class="quiz-container" style="margin-top: 1rem;"></div>
+              </div>
+
+            </div>
+
+            <!-- Saved Notes Library -->
+            <div class="glass-card">
+              <div class="card-title" style="margin-bottom: 1rem;">
+                <span>📚</span>
+                <span>My Knowledge Vault (Saved Summaries)</span>
+              </div>
+              <div id="savedNotesLibraryList"></div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ==================== VIEW 7: ANNOUNCEMENTS ==================== -->
+        <section id="view_announcements" class="view-panel">
+          <div class="tasks-header-bar">
+            <div class="task-filter-pills">
+              <button class="announcement-filter-tab task-filter-pill active" data-cat="All">All Notices</button>
+              <button class="announcement-filter-tab task-filter-pill" data-cat="Academic">Academic</button>
+              <button class="announcement-filter-tab task-filter-pill" data-cat="Examination">Examinations</button>
+              <button class="announcement-filter-tab task-filter-pill" data-cat="Events">Events & Clubs</button>
+              <button class="announcement-filter-tab task-filter-pill" data-cat="Timetable">Timetable</button>
+            </div>
+
+            <div style="display: flex; gap: 0.75rem;">
+              <input id="announcementSearchInput" class="form-input" type="text" placeholder="Search notices by keyword..." style="width: 240px; padding: 0.45rem 0.75rem;">
+              <button id="postAnnouncementBtn" class="btn btn-primary">
+                <span>+ Post Notice</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="announcementsFeedArea" class="announcements-feed">
+            <!-- Populated by announcements.js -->
+          </div>
+        </section>
+
+        <!-- ==================== VIEW 8: PROGRESS TRACKER ==================== -->
+        <section id="view_tracker" class="view-panel">
+          <div class="dashboard-grid">
+            
+            <!-- Quick Progress Stats -->
+            <div class="stats-cards-grid">
+              <div class="glass-card stat-card">
+                <div class="stat-icon-wrap indigo">⏱️</div>
+                <div class="stat-content">
+                  <div id="trackerTotalHours" class="stat-value">14.5 hrs</div>
+                  <div class="stat-label">Study Logged (Last 7 Days)</div>
+                  <div class="stat-subtext">80% of weekly goal</div>
+                </div>
+              </div>
+
+              <div class="glass-card stat-card">
+                <div class="stat-icon-wrap emerald">🛡️</div>
+                <div class="stat-content">
+                  <div id="trackerAttendance" class="stat-value">94.6%</div>
+                  <div class="stat-label">Lecture Attendance</div>
+                  <div class="stat-subtext">Exam eligibility safe</div>
+                </div>
+              </div>
+
+              <div class="glass-card stat-card">
+                <div class="stat-icon-wrap amber">🔥</div>
+                <div class="stat-content">
+                  <div id="trackerStreakDays" class="stat-value">8 Days 🔥</div>
+                  <div class="stat-label">Daily Study Streak</div>
+                  <div class="stat-subtext">Next reward at 10 days</div>
+                </div>
+              </div>
+
+              <div class="glass-card stat-card">
+                <div class="stat-icon-wrap purple">🎓</div>
+                <div class="stat-content">
+                  <div id="trackerGpa" class="stat-value">3.84 / 4.0</div>
+                  <div class="stat-label">Semester Standing</div>
+                  <div class="stat-subtext">Top 5% of Department</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Visual Charts Grid (Pure Responsive SVG) -->
+            <div class="analytics-grid">
+              
+              <!-- Weekly Study Trend -->
+              <div class="glass-card chart-card">
+                <div class="card-header-row">
+                  <div class="card-title">
+                    <span>📊</span>
+                    <span>Daily Study Hours (Past 7 Days)</span>
+                  </div>
+                  <span class="brand-tag">Trends</span>
+                </div>
+                <div id="studyTrendChartSvg" class="svg-chart-container"></div>
+              </div>
+
+              <!-- Subject Distribution Donut -->
+              <div class="glass-card chart-card">
+                <div class="card-header-row">
+                  <div class="card-title">
+                    <span>🍩</span>
+                    <span>Study Time by Subject</span>
+                  </div>
+                  <span class="brand-tag">Focus Balance</span>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-around; gap: 1rem; padding: 0.5rem 0;">
+                  <div id="subjectDonutChartSvg"></div>
+                  <div id="subjectDonutLegend" style="flex: 1; max-width: 200px;"></div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Consistency Score & Achievements -->
+            <div class="analytics-grid">
+              
+              <!-- Consistency Score Gauge -->
+              <div class="glass-card">
+                <div class="card-header-row">
+                  <div class="card-title">
+                    <span>⚡</span>
+                    <span>Academic Consistency Index</span>
+                  </div>
+                  <div id="academicConsistencyScore" style="font-size: 1.25rem; font-weight: 700; color: var(--success);">
+                    88 / 100
+                  </div>
+                </div>
+
+                <div class="risk-progress-track" style="height: 10px; margin: 1rem 0;">
+                  <div id="academicConsistencyBar" class="risk-progress-fill" style="width: 88%; background: var(--success);"></div>
+                </div>
+
+                <div id="academicConsistencyAdvice" style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+                  🌟 Elite Academic Rhythm! You are tracking in the top 5th percentile for study consistency and milestone adherence.
+                </div>
+              </div>
+
+              <!-- Badges & Achievements -->
+              <div class="glass-card">
+                <div class="card-title" style="margin-bottom: 1rem;">
+                  <span>🏆</span>
+                  <span>Unlocked Academic Badges</span>
+                </div>
+
+                <div class="badge-grid">
+                  <div class="achievement-badge">
+                    <div class="achievement-icon">🔥</div>
+                    <div class="achievement-title">7-Day Streak</div>
+                    <div class="achievement-desc">Maintained daily focus</div>
+                  </div>
+
+                  <div class="achievement-badge">
+                    <div class="achievement-icon">🛡️</div>
+                    <div class="achievement-title">Safe Attendance</div>
+                    <div class="achievement-desc">>90% in all courses</div>
+                  </div>
+
+                  <div class="achievement-badge">
+                    <div class="achievement-icon">⏱️</div>
+                    <div class="achievement-title">Deep Worker</div>
+                    <div class="achievement-desc">10+ hours completed</div>
+                  </div>
+
+                  <div class="achievement-badge">
+                    <div class="achievement-icon">🎯</div>
+                    <div class="achievement-title">Quiz Master</div>
+                    <div class="achievement-desc">Completed practice tests</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- 1. Add Task Modal -->
+  <div id="addTaskModal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title">Create New Academic Task</div>
+        <button class="modal-close" onclick="closeModal('addTaskModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Task Title</label>
+          <input id="taskTitleInput" class="form-input" type="text" placeholder="e.g. Implement Dijkstra's Algorithm">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div class="form-group">
+            <label class="form-label">Course Code</label>
+            <input id="taskCourseInput" class="form-input" type="text" value="CS301">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Priority</label>
+            <select id="taskPriorityInput" class="form-select">
+              <option value="Urgent">Urgent</option>
+              <option value="High">High</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 0.75rem;">
+          <div class="form-group">
+            <label class="form-label">Due Date & Time</label>
+            <input id="taskDueInput" class="form-input" type="datetime-local">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Est. Minutes</label>
+            <input id="taskEstMinutesInput" class="form-input" type="number" value="60" step="15">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description / Instructions</label>
+          <textarea id="taskDescInput" class="form-textarea" placeholder="Add specific assignment milestones or instructions..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('addTaskModal')">Cancel</button>
+        <button id="submitNewTaskBtn" class="btn btn-primary">Save Task</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Add Deadline Modal -->
+  <div id="addDeadlineModal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title">Register Examination or Major Deadline</div>
+        <button class="modal-close" onclick="closeModal('addDeadlineModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Title</label>
+          <input id="deadlineTitleInput" class="form-input" type="text" placeholder="e.g. CS301 Mid-Term Examination">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div class="form-group">
+            <label class="form-label">Course Code</label>
+            <input id="deadlineCourseInput" class="form-input" type="text" value="CS301">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Type</label>
+            <select id="deadlineTypeSelect" class="form-select">
+              <option value="Exam">Exam</option>
+              <option value="Assignment" selected>Assignment</option>
+              <option value="Project">Project Milestone</option>
+              <option value="Quiz">Quiz</option>
+            </select>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 0.75rem;">
+          <div class="form-group">
+            <label class="form-label">Deadline Date & Time</label>
+            <input id="deadlineDateInput" class="form-input" type="datetime-local">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Weight %</label>
+            <input id="deadlineWeightInput" class="form-input" type="number" value="25" min="1" max="100">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Venue / Submission Portal</label>
+          <input id="deadlineLocationInput" class="form-input" type="text" placeholder="e.g. Auditorium Hall A or Canvas LMS">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Syllabus / Details</label>
+          <textarea id="deadlineDescInput" class="form-textarea" placeholder="Chapters covered, rules, or deliverables..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('addDeadlineModal')">Cancel</button>
+        <button id="submitNewDeadlineBtn" class="btn btn-primary">Save Deadline</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Attach Document for Chat Modal -->
+  <div id="chatDocModal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title">Attach Study Document for AI Q&A</div>
+        <button class="modal-close" onclick="closeModal('chatDocModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Document Title</label>
+          <input id="chatDocTitleInput" class="form-input" type="text" placeholder="e.g. CS301 Syllabus & Grading Rubric">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Paste Document Text</label>
+          <textarea id="chatDocContentInput" class="form-textarea" rows="8" placeholder="Paste lecture notes, syllabus, or exam guidelines here..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('chatDocModal')">Cancel</button>
+        <button id="submitAttachDocBtn" class="btn btn-primary">Attach to Chat</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Post Announcement Modal -->
+  <div id="addAnnouncementModal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title">Publish Campus Announcement</div>
+        <button class="modal-close" onclick="closeModal('addAnnouncementModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Title</label>
+          <input id="announcementTitleInput" class="form-input" type="text" placeholder="e.g. Robotics Club Hackathon Workshop">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <select id="announcementCatSelect" class="form-select">
+              <option value="Events">Events & Clubs</option>
+              <option value="Academic">Academic</option>
+              <option value="Examination">Examination</option>
+              <option value="Timetable">Timetable</option>
+              <option value="General">General</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Author / Organization</label>
+            <input id="announcementAuthorInput" class="form-input" type="text" value="ACM Student Chapter">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notice Content</label>
+          <textarea id="announcementContentInput" class="form-textarea" rows="4" placeholder="Announcement details, location, timings, and registration links..."></textarea>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.25rem;">
+          <input id="announcementUrgentCheck" type="checkbox" style="width: 16px; height: 16px; accent-color: var(--danger);">
+          <label for="announcementUrgentCheck" class="form-label" style="cursor: pointer;">Mark as Urgent Priority Announcement</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('addAnnouncementModal')">Cancel</button>
+        <button id="submitNewAnnouncementBtn" class="btn btn-primary">Publish Notice</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Settings & AI Configuration Modal -->
+  <div id="settingsModal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title">Smart Campus AI Settings</div>
+        <button class="modal-close" onclick="closeModal('settingsModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="activeEngineStatusText" style="padding: 0.75rem; background: var(--bg-tertiary); border-radius: var(--radius-md); font-size: 0.85rem; font-weight: 600; color: var(--primary);">
+          Current Engine: Smart Local AI (Zero Quota Mode)
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Google Gemini API Key (Optional)</label>
+          <input id="geminiApiKeyInput" class="form-input" type="password" placeholder="AIzaSy... (Leave empty to use built-in Smart Local AI)">
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+            💡 Free-tier friendly! If no key is set or if you reach the Gemini rate limit, the app automatically runs on the built-in Intelligent Local AI Engine with zero quota usage.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">AI Model</label>
+          <select id="geminiModelSelect" class="form-select">
+            <option value="gemini-1.5-flash">Gemini 1.5 Flash (Fast & Free-tier Friendly)</option>
+            <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('settingsModal')">Cancel</button>
+        <button id="saveSettingsBtn" class="btn btn-primary">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Application Scripts -->
+  <script src="/js/store.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/dashboard.js"></script>
+  <script src="/js/chat.js"></script>
+  <script src="/js/tasks.js"></script>
+  <script src="/js/deadlines.js"></script>
+  <script src="/js/planner.js"></script>
+  <script src="/js/notes.js"></script>
+  <script src="/js/announcements.js"></script>
+  <script src="/js/tracker.js"></script>
+  <script src="/js/app.js"></script>
+
+</body>
+</html>
